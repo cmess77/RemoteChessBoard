@@ -53,8 +53,7 @@ void updateHalls(hall (*sensorList)[8][8]) {
             digitalWrite(selectorPinB, selector_binaries[j][1]);
             digitalWrite(selectorPinA, selector_binaries[j][2]);
 
-            //(*sensorList)[i][j].hallState = digitalRead(mux_list[i].pinNumber);
-            (*sensorList)[i][j].hallState = 1;
+            (*sensorList)[i][j].hallState = digitalRead(mux_list[i].pinNumber);
         }
     }
 }
@@ -80,38 +79,10 @@ void setup() {
 
     Serial.begin(9600);
 
-    //updateHalls(&hall_list);
-
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
-            hall_list[i][j].hallState = 0;
-        }
-    }
+    updateHalls(&hall_list);
 }
 
 
-int main(void) {
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
-            hall_list[i][j].hallState = 0;
-        }
-    }
-
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
-            printf("%n ", &hall_list[i][j].hallState);
-        }
-        printf("\n");
-    }
-
+void loop() {
     updateHalls(&hall_list);
-
-    printf("Printing updated table.\n");
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
-            printf("%n ", &hall_list[i][j].hallState);
-        }
-        printf("\n");
-    }
-return 0;
 }
