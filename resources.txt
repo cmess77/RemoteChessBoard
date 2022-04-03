@@ -1,0 +1,5 @@
+https://docs.python.org/3/library/enum.html
+
+https://codereview.stackexchange.com/questions/234619/chess-game-in-c
+
+https://roboticsbackend.com/raspberry-pi-arduino-serial-communication/
