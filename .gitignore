@@ -45,3 +45,5 @@ dkms.conf
 *.DS_Store
 .vscode
 main.c
+__pycache__
+*.pyc
