@@ -2,18 +2,19 @@ import piece
 
 class Board():
     '''
-    This will handle printing the board to the command line
+    A class to represent a chess board.
     '''
-    
     def __init__(self):
         '''
-        Creates the chess board representation as a 2D list.
+        Initializes the initial state of the board
         '''
+
         self.board = []
 
+        # populating white pieces, indicated by piece.color = True being provided
         for i in range(8):
             self.board.append([None] * 8)
-
+        # White
         self.board[7][0] = piece.Rook(True)
         self.board[7][1] = piece.Knight(True)
         self.board[7][2] = piece.Bishop(True)
@@ -24,8 +25,9 @@ class Board():
         self.board[7][7] = piece.Rook(True)
 
         for i in range(8):
-            self.board[1][i] = piece.Pawn(True)
-        
+            self.board[6][i] = piece.Pawn(True)
+
+        # populating black pieces, indicated by piece.color = False being provided
         self.board[0][0] = piece.Rook(False)
         self.board[0][1] = piece.Knight(False)
         self.board[0][2] = piece.Bishop(False)
@@ -37,23 +39,32 @@ class Board():
 
         for i in range(8):
             self.board[1][i] = piece.Pawn(False)
-    
-    def display_board(self):
-        temp = ""
+
+
+    def print_board(self):
+        '''
+        Prints the current state of the board.
+        '''
+
+        buffer = ''
         for i in range(33):
-            temp += "*"
-        print(temp)
+            buffer += '*' # printing the top border
+        print(buffer)
+
+        # printing each cell
         for i in range(len(self.board)):
-            tmp_str = "|"
+            tmp_str = '|'
             for j in self.board[i]:
-                if j == None or j.name == 'GP':
-                    tmp_str += "   |"
+                if j == None:
+                    tmp_str += '   |'
                 elif len(j.name) == 2:
-                    tmp_str += (" " + str(j) + "|")
+                    tmp_str += (' ' + str(j) + '|')
                 else:
-                    tmp_str += (" " + str(j) + " |")
+                    tmp_str += (' ' + str(j) + ' |')
             print(tmp_str)
-        temp = ""
+        buffer = ''
         for i in range(33):
-            temp += "*"
-        print(temp)
+            buffer += '*' # printing the bottom border
+        print(buffer)
+
+
