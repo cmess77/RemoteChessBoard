@@ -1,3 +1,4 @@
+#include <Arduino.h> // only to appease the vscode gods, dont actually include this lib
 #include <Servo.h>
 #include <math.h>
 Servo base;
