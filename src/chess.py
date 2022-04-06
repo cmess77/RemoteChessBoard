@@ -13,8 +13,6 @@ class Chess():
 
         self.turn = True
 
-        self.white_ghost_piece = None
-        self.black_ghost_piece = None
 
     def promotion(self, pos):
         pawn = None
@@ -71,28 +69,12 @@ class Chess():
                 
             if self.board.board[to_pos[0]][to_pos[1]]:
                 print(str(self.board.board[to_pos[0]][to_pos[1]]) + ' taken.')
-                # Special logic for ghost piece, deletes the actual pawn that is not in the 'to_pos'
-                # coordinate from en passant
-                if self.board.board[to_pos[0]][to_pos[1]].name == 'GP':
-                    if self.turn:
-                        self.board.board[
-                            self.black_ghost_piece[0] + 1
-                        ][
-                            self.black_ghost_piece[1]
-                        ] = None
-                        self.black_ghost_piece = None
-                    else:
-                        self.board.board[self.white_ghost_piece[0] - 1][self.black_ghost_piece[1]] = None
-                        self.white_ghost_piece = None
+
 
             self.board.board[to_pos[0]][to_pos[1]] = target_piece
             self.board.board[start_pos[0]][start_pos[1]] = None
             print(str(target_piece) + ' moved.')
 
-            if self.turn and self.black_ghost_piece:
-                self.board.board[self.black_ghost_piece[0]][self.black_ghost_piece[1]] = None
-            elif not self.turn and self.white_ghost_piece:
-                self.board.board[self.white_ghost_piece[0]][self.white_ghost_piece[1]] = None
 
             self.turn = not self.turn
 
@@ -102,8 +84,8 @@ def translate(s):
     Translates traditional board coordinates of chess into list indices
     '''
     try:
-        row = int(s[0])
-        col = s[1]
+        row = int(s[1])
+        col = s[0]
         if row < 1 or row > 8:
             print(s[0] + 'is not in the range from 1 - 8')
             return None
