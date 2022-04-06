@@ -65,6 +65,7 @@ void updateHalls(int (*sensorList)[8][8]) {
             digitalWrite(selectorPinB, selectorBinaries[j][1]);
             digitalWrite(selectorPinA, selectorBinaries[j][2]);
 
+
             // if the existing state hasn't changed, don't change it
             if((*sensorList)[i][j] == digitalRead(mux_list[i])) {
                 break;
@@ -94,6 +95,9 @@ void setup() {
     // beginning (you guessed it) Serial communication
     Serial.begin(9600);
 
+<<<<<<< HEAD
+    updateHalls(&hall_list);
+=======
     //updateHalls(&hall_list)
 
     // for testing purposes
@@ -102,10 +106,14 @@ void setup() {
             hall_list[i][j] = 0;
         }
     }
+>>>>>>> 8661bb93f42f4fae62c3991c324d48edda2594ed
 }
 
 
 void loop() {
+<<<<<<< HEAD
+    updateHalls(&hall_list);
+=======
     /*
     all code below is only for testing purposes; in practice, 
     this function will only include the line 
@@ -139,4 +147,5 @@ void loop() {
 
         test_flag = 0;
     }
+>>>>>>> 8661bb93f42f4fae62c3991c324d48edda2594ed
 }
