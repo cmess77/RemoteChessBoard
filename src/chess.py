@@ -1,8 +1,9 @@
 import board
 import piece
-# import serial
+import serial
+from time import sleep
 
-
+numChanges = 0
 class Chess():
     '''
     A class to represent the game of chess.
@@ -101,63 +102,67 @@ def translate(s):
 
 
 if __name__ == '__main__':
+    # ser = serial.Serial('/dev/ttyACM0', 9600, timeout=2)
+    # ser.reset_input_buffer()
+
     chess = Chess()
     chess.board.print_board()
-    # ser = serial.Serial('/dev/ttyUSB0', 9600, timeout = 2)
 
     while True:
-        # if chess.turn == True:
-        #     start_pos = input('From: ')
-        #     to_pos = input('To: ')
+        if chess.turn:
+            start_pos = input('From: ')
+            to_pos = input('To: ')
+
+            print(f"{start_pos[0]} {start_pos[1]} {to_pos[0]} {to_pos[1]}\n")
             
-        #     start_pos = translate(start_pos)
-        #     to_pos = translate(to_pos)
+            start_pos = translate(start_pos)
+            to_pos = translate(to_pos)
 
-        #     if start_pos == None or to_pos == None:
-        #         continue
+            if start_pos == None or to_pos == None:
+                continue
 
-        #     chess.move(start_pos, to_pos)
+            chess.move(start_pos, to_pos)
 
-        #     # check for promotion pawns
-        #     i = 0
-        #     while i < 8:
-        #         if not chess.turn and chess.board.board[0][i] != None and \
-        #             chess.board.board[0][i].name == 'P':
-        #             chess.promotion((0, i))
-        #             break
-        #         elif chess.turn and chess.board.board[7][i] != None and \
-        #             chess.board.board[7][i].name == 'P':
-        #             chess.promotion((7, i))
-        #             break
-        #         i += 1
+            # ser.write(str(start_pos[0]).encode('utf-8'))
+            # ser.write(' '.encode('utf-8'))
+            # ser.write(str(start_pos[1]).encode('utf-8'))
+            # ser.write(' '.encode('utf-8'))
 
-        #     chess.board.print_board()
-        start_pos = input('From: ')
-        to_pos = input('To: ')
-        
-        start_pos = translate(start_pos)
-        to_pos = translate(to_pos)
+            # ser.write(str(to_pos[0]).encode('utf-8'))
+            # ser.write(' '.encode('utf-8'))
+            # ser.write(str(to_pos[1]).encode('utf-8'))
+            # ser.write(' '.encode('utf-8'))
+            # sleep(1);
+            print("Move sent to arduino\n")
 
-        if start_pos == None or to_pos == None:
-            continue
+            # check for promotion
+            i = 0
+            while i < 8:
+                if not chess.turn and chess.board.board[0][i] != None and \
+                    chess.board.board[0][i].name == 'P':
+                    chess.promotion((0, i))
+                    break
+                elif chess.turn and chess.board.board[7][i] != None and \
+                    chess.board.board[7][i].name == 'P':
+                    chess.promotion((7, i))
+                    break
+                i += 1
 
-        chess.move(start_pos, to_pos) # add serial functionality within move
+            chess.board.print_board()
 
-        # check for promotion
-        i = 0
-        while i < 8:
-            if not chess.turn and chess.board.board[0][i] != None and \
-                chess.board.board[0][i].name == 'P':
-                chess.promotion((0, i))
-                break
-            elif chess.turn and chess.board.board[7][i] != None and \
-                chess.board.board[7][i].name == 'P':
-                chess.promotion((7, i))
-                break
-            i += 1
+        else:
+            continue;
+            # if ser.in_waiting > 0:
+            #     pos_string = ser.readline().decode('utf-8').rstrip()
+            
+            # pos_string.split()
+            # start_pos[0] = pos_string[0]
+            # start_pos[1] = pos_string[1]
+            # to_pos[0] = pos_string[2]
+            # to_pos[1] = pos_string[3]
 
-        chess.board.print_board()
+            # chess.move(start_pos, to_pos)
 
-        # else:
-            # continue
+            # chess.turn = not chess.turn
+
 
