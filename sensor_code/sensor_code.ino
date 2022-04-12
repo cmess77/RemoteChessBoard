@@ -10,10 +10,10 @@ TODO
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SELECTOR_PIN_A 22
-#define SELECTOR_PIN_B 23
-#define SELECTOR_PIN_C 24
-#define STARTING_MUX_PIN 25
+const int = SELECTOR_PIN_A 22;
+const int = SELECTOR_PIN_B 23;
+const int = SELECTOR_PIN_C 24;
+const int = STARTING_MUX_PIN 25;
 
 const int numMux = 8;
 const int numHallPerMux = 8;
@@ -49,40 +49,22 @@ typedef struct Move {
 move recentMove;
 
 
-int *returnHallArray(int n) {
+int *returnArray(int n) {
     /*
     Description:
-    Function to dynamically allocate memory for an array of size 'n' hall sensors. 
-    Each hall sensor is represented by an int, expected values of 0 and 1. 0 indicates
-    no magnetic field is deteced, 1 indicates the opposite.
+    Function to dynamically allocate memory for an array of size 'n.' 
     ----------------
     Input:
         int n: number of elements to allocate to array
     ----------------
     Output:
-        int* temp: pointer to array of hall sensors
+        int* temp: pointer to array
     */
 
    int *temp = new int(n);
    return temp;
 }
 
-int *returnMuxArray(int n) {
-    /*
-    Description:
-    Function to dynamically allocate memory for an array of size 'n' multiplexers (mux). 
-    This is in order to make reading mux values easier.
-    ----------------
-    Input:
-        int n: number of elements to allocate to array
-    ----------------
-    Output:
-        int* temp: pointer to array of multiplesers
-    */
-
-   int *temp = new int(n);
-   return temp;
-}
 
 char numToLetter(int num) {
     /*
@@ -126,6 +108,7 @@ char numToLetter(int num) {
     return temp;
 }
 
+
 void updateHalls() {
     /*
     Description:
@@ -159,9 +142,8 @@ void updateHalls() {
                         recentMove.start[0] = j;
                         recentMove.start[1] = i;
                         recentMove.startColumnLetter = numToLetter(recentMove.start[0]);
-
-
                         break;
+                        
                     case 2:
                         recentMove.end[0] = j;
                         recentMove.end[1] = i;
@@ -185,11 +167,12 @@ void updateHalls() {
     }
 }
 
+
 void setup() {
     Serial.begin(9600);
 
-    hallList = returnHallArray(numHall);
-    muxList = returnMuxArray(numMux);
+    hallList = returnArray(numHall);
+    muxList = returnArray(numMux);
 
     for(int i = 0; i < numMux; i++) {
         muxList[i] = STARTING_MUX_PIN + i;

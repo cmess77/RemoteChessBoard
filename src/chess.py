@@ -151,7 +151,7 @@ if __name__ == '__main__':
             chess.board.print_board()
 
         else:
-            continue;
+            continue
             # if ser.in_waiting > 0:
             #     pos_string = ser.readline().decode('utf-8').rstrip()
             
@@ -163,6 +163,6 @@ if __name__ == '__main__':
 
             # chess.move(start_pos, to_pos)
 
-            # chess.turn = not chess.turn
+            # chess.board.print_board()
 
 
