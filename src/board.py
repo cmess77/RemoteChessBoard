@@ -1,9 +1,11 @@
 import piece
 
+
 class Board():
     '''
     A class to represent a chess board.
     '''
+
     def __init__(self):
         '''
         Initializes the initial state of the board
@@ -40,7 +42,6 @@ class Board():
         for i in range(8):
             self.board[1][i] = piece.Pawn(False)
 
-
     def print_board(self):
         '''
         Prints the current state of the board.
@@ -48,7 +49,7 @@ class Board():
 
         buffer = ''
         for i in range(33):
-            buffer += '*' # printing the top border
+            buffer += '*'  # printing the top border
         print(buffer)
 
         # printing each cell
@@ -64,7 +65,5 @@ class Board():
             print(tmp_str)
         buffer = ''
         for i in range(33):
-            buffer += '*' # printing the bottom border
+            buffer += '*'  # printing the bottom border
         print(buffer)
-
-

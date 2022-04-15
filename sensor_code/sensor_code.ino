@@ -10,10 +10,10 @@ TODO
 #include <stdio.h>
 #include <stdlib.h>
 
-const int = SELECTOR_PIN_A 22;
-const int = SELECTOR_PIN_B 23;
-const int = SELECTOR_PIN_C 24;
-const int = STARTING_MUX_PIN 25;
+const int SELECTOR_PIN_A =  22;
+const int SELECTOR_PIN_B =  23;
+const int SELECTOR_PIN_C =  24;
+const int STARTING_MUX_PIN =  25;
 
 const int numMux = 8;
 const int numHallPerMux = 8;
@@ -33,17 +33,16 @@ const int selectorBinaries[8][3] = {
 int *hallList;
 int *muxList;
 
-int changes = 0;
 int testFlag = 1;
 int moveStart[2];
 int moveEnd[2];
 int numChanges = 0;
 
 typedef struct Move {
-    int start[2];
-    int end[2];
-    char startColumnLetter;
-    char endColumnLetter;
+    int start[2] = {0, 0};
+    int end[2] = {0, 0};
+    char startColumnLetter = 0;
+    char endColumnLetter = 0;
 }move;
 
 move recentMove;
@@ -157,8 +156,7 @@ void updateHalls() {
                         Serial.print(" ");
                         Serial.println(recentMove.end[1] + 1);
                         delay(1000);
-                        break;
-                    case 3:
+
                         numChanges = 0;
                         break;
                 }
@@ -215,6 +213,8 @@ void loop() {
 
     //     testFlag = 0;
     // }
+
+
 
     updateHalls();
 }
