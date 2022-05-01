@@ -1,28 +1,34 @@
-#include <Arduino.h>
+/* 
+Black Termination: e7
+Blue Termination: e5
+Purple Termination: e4
+Orange Termination: e2
+*/
 
-const int hall_pin = 37;
-const int led_pin = 25;
+const int hall_pins[4] = {7, 6, 5, 4};
+
 
 void setup() {
-    pinMode(hall_pin, INPUT_PULLUP);
-    pinMode(led_pin, OUTPUT);
 
+  for(int i = 0; i < 4; i++) {
+    pinMode(hall_pins[i], INPUT_PULLUP);
+  }
+  
     Serial.begin(9600);
 }
 
 
 void loop() {
 
-    if(digitalRead(hall_pin) == LOW) {
-        digitalWrite(led_pin, HIGH);
-        Serial.println("MAGNETIC FIELD DETECTED");
+  for(int i = 0; i < 4; i++) {
+    if(digitalRead(hall_pins[i]) == LOW) {
+        Serial.print("1 ");
     }
     
-    else if(digitalRead(hall_pin) == HIGH) {
-        digitalWrite(led_pin, LOW);
-        Serial.println("MAGNETIC FIELD NOT DETECTED.");
+    else if(digitalRead(hall_pins[i]) == HIGH) {
+        Serial.print("0 ");
     }
-
-
-
+  }
+  Serial.println("");
+  delay(500);
 }
