@@ -1,6 +1,6 @@
-const int input_1a = 7;
-const int input_2a = 8;
-const int input_12EN = 6;
+const int input_1a = 24;
+const int input_2a = 23;
+const int input_12EN = 22;
 
 void setup() {
     pinMode(input_1a, OUTPUT);

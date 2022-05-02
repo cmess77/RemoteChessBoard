@@ -101,81 +101,70 @@ def translate(s):
 
 
 if __name__ == '__main__':
-    arduino = serial.Serial('/dev/tty.usbmodem1101', 9600, timeout=2)
-    arduino.reset_input_buffer()
+    # arduino = serial.Serial('/dev/tty.usbmodem1101', 9600, timeout=2)
+    # arduino.reset_input_buffer()
 
     chess = Chess()
     chess.board.print_board()
 
     while True:
-        if chess.turn:
-            start_pos = input('From: ')
-            to_pos = input('To: ')
-            
-            start_pos = translate(start_pos)
-            to_pos = translate(to_pos)
+        # if chess.turn:
+        start_pos = input('From: ')
+        to_pos = input('To: ')
+        
+        start_pos = translate(start_pos)
+        to_pos = translate(to_pos)
 
-            if start_pos == None or to_pos == None:
-                continue
+        if start_pos == None or to_pos == None:
+            continue
 
-            # check for promotion
-            i = 0
-            while i < 8:
-                if not chess.turn and chess.board.board[0][i] != None and \
-                    chess.board.board[0][i].name == 'P':
-                    chess.promotion((0, i))
-                    break
-                elif chess.turn and chess.board.board[7][i] != None and \
-                    chess.board.board[7][i].name == 'P':
-                    chess.promotion((7, i))
-                    break
-                i += 1
+        # check for promotion
+        i = 0
+        while i < 8:
+            if not chess.turn and chess.board.board[0][i] != None and \
+                chess.board.board[0][i].name == 'P':
+                chess.promotion((0, i))
+                break
+            elif chess.turn and chess.board.board[7][i] != None and \
+                chess.board.board[7][i].name == 'P':
+                chess.promotion((7, i))
+                break
+            i += 1
 
-            chess.move(start_pos, to_pos)
+        chess.move(start_pos, to_pos)
 
-            arduino.write(str(start_pos[0]).encode())
-            arduino.write(' '.encode())
-            arduino.write(str(start_pos[1]).encode())
-            arduino.write(' '.encode())
+        chess.board.print_board()
 
-            arduino.write(str(to_pos[0]).encode())
-            arduino.write(' '.encode())
-            arduino.write(str(to_pos[1]).encode())
-            arduino.write(' '.encode())
-            sleep(1);
+        # else:
+        #     temp_string = str(arduino.readline())
 
-            chess.board.print_board()
+        #     start_input = temp_string[2:4]
+        #     to_input = temp_string[5:7]
 
-        else:
-            temp_string = str(arduino.readline())
+        #     # print(start_input)
+        #     # print(to_input)
+        #     # break
 
-            start_input = temp_string[2:4]
-            to_input = temp_string[5:7]
+        #     start_pos = translate(start_input)
+        #     to_pos = translate(to_input)
 
-            # print(start_input)
-            # print(to_input)
-            # break
+        #     if start_pos == None or to_pos == None:
+        #         continue
 
-            start_pos = translate(start_input)
-            to_pos = translate(to_input)
+        #     chess.move(start_pos, to_pos)
 
-            if start_pos == None or to_pos == None:
-                continue
+        #     # check for promotion
+        #     i = 0
+        #     while i < 8:
+        #         if not chess.turn and chess.board.board[0][i] != None and \
+        #             chess.board.board[0][i].name == 'P':
+        #             chess.promotion((0, i))
+        #             break
+        #         elif chess.turn and chess.board.board[7][i] != None and \
+        #             chess.board.board[7][i].name == 'P':
+        #             chess.promotion((7, i))
+        #             break
+        #         i += 1
 
-            chess.move(start_pos, to_pos)
-
-            # check for promotion
-            i = 0
-            while i < 8:
-                if not chess.turn and chess.board.board[0][i] != None and \
-                    chess.board.board[0][i].name == 'P':
-                    chess.promotion((0, i))
-                    break
-                elif chess.turn and chess.board.board[7][i] != None and \
-                    chess.board.board[7][i].name == 'P':
-                    chess.promotion((7, i))
-                    break
-                i += 1
-
-            chess.board.print_board()
+        #     chess.board.print_board()
 

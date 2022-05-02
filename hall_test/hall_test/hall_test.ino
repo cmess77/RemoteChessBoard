@@ -1,14 +1,23 @@
 /* 
-Black Termination: e7
-Blue Termination: e5
-Purple Termination: e4
-Orange Termination: e2
+Black Termination: e2
+Blue Termination: e4
+Purple Termination: e5
+Orange Termination: e7
 */
 
-const int hall_pins[4] = {7, 6, 5, 4};
+const int hall_pins[4] = {32, 33, 34, 35};
 
+const int input_1a = 24;
+const int input_2a = 23;
+const int input_12EN = 22;
 
 void setup() {
+  pinMode(input_1a, OUTPUT);
+  pinMode(input_2a, OUTPUT);
+  pinMode(input_12EN, OUTPUT);
+
+  digitalWrite(input_1a, HIGH);
+  digitalWrite(input_2a, LOW);
 
   for(int i = 0; i < 4; i++) {
     pinMode(hall_pins[i], INPUT_PULLUP);
@@ -19,6 +28,7 @@ void setup() {
 
 
 void loop() {
+  analogWrite(input_12EN, 255);
 
   for(int i = 0; i < 4; i++) {
     if(digitalRead(hall_pins[i]) == LOW) {
