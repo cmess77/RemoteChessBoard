@@ -6,6 +6,7 @@ byte buffer[num_bytes];
 
 void checkSerial() {
     if(Serial.available()) {
+        Serial.print("I received: ");
         char ch = Serial.read();
         if(ch > 0) {
             Serial.print(ch);
@@ -20,6 +21,10 @@ void setup() {
 
 
 void loop() {
-    // checkSerial();
-    Serial.print("Hello from arduino.\n");
+
+    Serial.print("e7 e5\n");
+    delay(5000);
+    Serial.print("d7 d5\n");
+    delay(5000);
+    
 }
