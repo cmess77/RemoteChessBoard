@@ -7,13 +7,6 @@ TODO
 #include <stdio.h>
 #include <stdlib.h>
 
-// const int SELECTOR_PIN_A =  22;
-// const int SELECTOR_PIN_B =  23;
-// const int SELECTOR_PIN_C =  24;
-// const int STARTING_MUX_PIN =  25;
-
-// const int numMux = 8;
-// const int numHallPerMux = 8;
 const int num_hall = 4;
 
 int num_changes = 0;
@@ -101,60 +94,18 @@ void updateHalls() {
     Description:
     Function to iterate through all hall sensors and update
     their states if necessary (if previous state doesn't match
-    current state)
+    current state). Sends move made by OTB player to python 
+    script.
     ----------------
     Input:
         NOTHING
     ----------------
     Output:
-        Technically nothing.
-        hall_list: not returned, but all values are updated via 
-        reference to hallList
+        No formal output, updates hall_list.
     */
-
-    // for(int i = 0; i < numMux; i++) {
-    //     for(int j = 0; j < numHallPerMux; j++) {
-    //         digitalWrite(SELECTOR_PIN_A, selectorBinaries[i][0]);
-    //         digitalWrite(SELECTOR_PIN_B, selectorBinaries[i][1]);
-    //         digitalWrite(SELECTOR_PIN_C, selectorBinaries[i][2]);
-
-    //         // do nothing if the cell hasn't changed
-    //         if(hallList[j + (i * 8)] == digitalRead(muxList[i]));
-
-    //         else {
-    //             hallList[j + (i * 8)] = digitalRead(muxList[i]);
-    //             numChanges++;
-
-    //             switch(numChanges) {
-    //                 case 1:
-    //                     recentMove.start[0] = j;
-    //                     recentMove.start[1] = i;
-    //                     recentMove.startColumnLetter = numToLetter(recentMove.start[0]);
-    //                     break;
-                        
-    //                 case 2:
-    //                     recentMove.end[0] = j;
-    //                     recentMove.end[1] = i;
-    //                     recentMove.endColumnLetter = numToLetter(recentMove.end[0]);
-
-    //                     Serial.print(recentMove.startColumnLetter);
-    //                     Serial.print(" ");
-    //                     Serial.print(recentMove.start[1] + 1);
-    //                     Serial.print(" ");
-    //                     Serial.print(recentMove.endColumnLetter);
-    //                     Serial.print(" ");
-    //                     Serial.println(recentMove.end[1] + 1);
-    //                     delay(1000);
-
-    //                     numChanges = 0;
-    //                     break;
-    //             }
-    //         }
-    //     }
-    // }
     for(int i = 0; i < num_hall; i++) {
         int temp = digitalRead(hall_list[i].pin_number);
-        if(hall_list[i].state == temp);
+        if(hall_list[i].state == temp){continue;};
 
         else {
             hall_list[i].state = temp;
@@ -173,7 +124,7 @@ void updateHalls() {
                     Serial.print(recent_move.origin);
                     Serial.print(" ");
                     Serial.print(recent_move.destination);
-                    delay(1000);
+                    Serial.print("\n");
 
                     numChanges = 0;
                     break;
@@ -187,12 +138,11 @@ void setup() {
     Serial.begin(9600);
 
     hall_list = returnArray(num_hall);
-    int starting_pin = 22;
     
-    hall_list[0].square = "e 7";
-    hall_list[1].square = "e 5";
-    hall_list[2].square = "e 4";
-    hall_list[3].square = "e 2";
+    hall_list[0].square = "e7";
+    hall_list[1].square = "e5";
+    hall_list[2].square = "e4";
+    hall_list[3].square = "e2";
 
     for(int i = 0; i < num_hall; i++) {
         hall_list[i].pin_number = starting_pin + i;
@@ -205,32 +155,5 @@ void setup() {
 
 
 void loop() {
-    // while(testFlag == 1) {
-
-    //     for(int i = 0; i < numMux; i++) {
-    //         printf("&d ", muxList[i]);
-    //     }
-    //     printf("\n");
-
-    //     for(int i = 0; i < numHall; i++) {
-    //         hallList[i] = 0;
-    //     }
-
-    //     for(int i = 0; i < numHall; i++) {
-    //         printf("%d\n", hallList[i]);
-    //     }
-
-    //     for(int i = 0; i < numHall; i++) {
-    //         hallList[i] = 1;
-    //     }
-    //     for(int i = 0; i < numHall; i++) {
-    //         printf("%d\n", hallList[i]);
-    //     }
-
-    //     testFlag = 0;
-    // }
-
-
-
     updateHalls();
 }
